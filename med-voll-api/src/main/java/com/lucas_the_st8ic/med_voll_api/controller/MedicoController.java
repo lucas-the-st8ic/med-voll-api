@@ -1,6 +1,7 @@
 package com.lucas_the_st8ic.med_voll_api.controller;
 
 
+import com.lucas_the_st8ic.med_voll_api.medico.DadosAtualizacaoMedico;
 import com.lucas_the_st8ic.med_voll_api.medico.DadosCadastroMedico;
 import com.lucas_the_st8ic.med_voll_api.medico.DadosListagemMedico;
 import com.lucas_the_st8ic.med_voll_api.model.Medico;
@@ -35,5 +36,12 @@ public class MedicoController {
                                                  Pageable pageable) {
         return medicoRepository.findAll(pageable)
                 .map(DadosListagemMedico::new);
+    }
+
+    @PutMapping("/atualizar")
+    @Transactional
+    public void update (@RequestBody @Valid DadosAtualizacaoMedico dados) {
+       var medico = medicoRepository.getReferenceById(dados.id());
+       medico.update(dados);
     }
 }

@@ -1,9 +1,11 @@
 package com.lucas_the_st8ic.med_voll_api.model;
 
 
+import com.lucas_the_st8ic.med_voll_api.medico.DadosAtualizacaoMedico;
 import com.lucas_the_st8ic.med_voll_api.medico.DadosCadastroMedico;
 import com.lucas_the_st8ic.med_voll_api.medico.Especialidade;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.*;
 
 
@@ -36,5 +38,11 @@ public class Medico {
         this.crm = dados.crm();
         this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
+    }
+
+    public void update(@Valid DadosAtualizacaoMedico dados) {
+        if (dados.nome() != null) this.nome = dados.nome();
+        if (dados.telefone() != null) this.telefone = dados.telefone();
+        if (dados.endereco() != null) this. endereco.update(dados.endereco());
     }
 }
