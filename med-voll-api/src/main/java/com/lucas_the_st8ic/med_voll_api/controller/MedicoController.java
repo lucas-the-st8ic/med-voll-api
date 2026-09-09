@@ -8,12 +8,16 @@ import com.lucas_the_st8ic.med_voll_api.repository.MedicoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/medicos")
+@EnableSpringDataWebSupport(pageSerializationMode =
+        EnableSpringDataWebSupport.PageSerializationMode.VIA_DTO)
 public class MedicoController {
 
     @Autowired
@@ -27,9 +31,9 @@ public class MedicoController {
     }
 
     @GetMapping
-    public List<DadosListagemMedico> listAll(){
-        return medicoRepository.findAll()
-                .stream().map(DadosListagemMedico::new)
-                .toList();
+    public Page<DadosListagemMedico> listAll(@PageableDefault(size = 2, page = 0, sort = {"nome"})
+                                                 Pageable pageable) {
+        return medicoRepository.findAll(pageable)
+                .map(DadosListagemMedico::new);
     }
 }
