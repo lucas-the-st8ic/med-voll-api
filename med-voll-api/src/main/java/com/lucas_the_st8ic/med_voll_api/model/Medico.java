@@ -7,6 +7,8 @@ import com.lucas_the_st8ic.med_voll_api.medico.Especialidade;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 
 @Table(name = "medicos")
@@ -31,7 +33,11 @@ public class Medico {
     @Embedded
     private Endereco endereco;
 
+    @JdbcTypeCode(SqlTypes.TINYINT)
+    private boolean status;
+
     public Medico(DadosCadastroMedico dados) {
+        this.status = true;
         this.nome = dados.nome();
         this.email = dados.email();
         this.telefone = dados.telefone();
@@ -44,5 +50,9 @@ public class Medico {
         if (dados.nome() != null) this.nome = dados.nome();
         if (dados.telefone() != null) this.telefone = dados.telefone();
         if (dados.endereco() != null) this. endereco.update(dados.endereco());
+    }
+
+    public void disable(){
+        this.status = false;
     }
 }

@@ -34,7 +34,7 @@ public class MedicoController {
     @GetMapping
     public Page<DadosListagemMedico> listAll(@PageableDefault(size = 5, page = 0, sort = {"nome"})
                                                  Pageable pageable) {
-        return medicoRepository.findAll(pageable)
+        return medicoRepository.findAllByStatusTrue(pageable)
                 .map(DadosListagemMedico::new);
     }
 
@@ -47,7 +47,15 @@ public class MedicoController {
 
     @DeleteMapping("/deletar/{id}")
     @Transactional
+    public void delete (@PathVariable @Valid Long id) {
+        var medico = medicoRepository.getReferenceById(id);
+        medico.disable();
+    }
+
+/*   Exclusão Física - remove do banco de dados
+    @DeleteMapping("/deletar/{id}")
+    @Transactional
     public void delete (@PathVariable @Valid Long id){
         medicoRepository.deleteById(id);
-    }
+    }*/
 }
