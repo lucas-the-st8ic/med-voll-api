@@ -13,7 +13,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 
-@Table(name = "paciente")
+@Table(name = "pacientes")
 @Entity(name = "Paciente")
 @Getter
 @AllArgsConstructor
@@ -47,6 +47,7 @@ public class Paciente {
         if (dados.nome() != null) this.nome = dados.nome();
         if (dados.telefone() != null) this.telefone = dados.telefone();
         if (dados.endereco() != null) this. endereco.update(dados.endereco());
+        if (dados.email()!= null) this.email = dados.email();
     }
 
     public void disable(){

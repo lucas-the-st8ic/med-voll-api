@@ -10,5 +10,6 @@ public record DadosAtualizacaoPaciente(
 
         String nome,
         String telefone,
-        DadosEndereco endereco
+        DadosEndereco endereco,
+        String email
 ) { }
