@@ -9,13 +9,13 @@ import com.lucas_the_st8ic.med_voll_api.model.Medico;
 import com.lucas_the_st8ic.med_voll_api.repository.MedicoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/medicos")
@@ -23,15 +23,26 @@ import org.springframework.web.bind.annotation.*;
         EnableSpringDataWebSupport.PageSerializationMode.VIA_DTO)
 public class MedicoController {
 
-    @Autowired
-    private  MedicoRepository medicoRepository;
+    private final MedicoRepository medicoRepository;
 
-    /*@PostMapping("/cadastrar")
+    public MedicoController(MedicoRepository medicoRepository) {
+        this.medicoRepository = medicoRepository;
+    }
+
+    @PostMapping
     @Transactional
-    public ResponseEntity register(@RequestBody
-                            @Valid DadosCadastroMedico dados) {
-        medicoRepository.save(new Medico(dados));
-    }*/
+    public ResponseEntity register(@RequestBody @Valid
+                                       DadosCadastroMedico dados,
+                                   UriComponentsBuilder uriBuilder) {
+
+        var medico = new Medico(dados);
+        medicoRepository.save(medico);
+
+        var uri = uriBuilder.path("/medicos/{id}")
+                .buildAndExpand(medico.getId()).toUri();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoMedico(medico));
+
+    }
 
     @GetMapping
     public ResponseEntity< Page<DadosListagemMedico> > listAll(@PageableDefault(size = 5, page = 0, sort = {"nome"})
@@ -43,7 +54,7 @@ public class MedicoController {
         return ResponseEntity.ok(page);
     }
 
-    @PutMapping("/atualizar")
+    @PutMapping
     @Transactional
     public ResponseEntity update (@RequestBody @Valid DadosAtualizacaoMedico dados) {
        var medico = medicoRepository.getReferenceById(dados.id());
@@ -52,7 +63,7 @@ public class MedicoController {
        return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
     }
 
-    @DeleteMapping("/deletar/{id}")
+    @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity delete (@PathVariable @Valid Long id) {
         var medico = medicoRepository.getReferenceById(id);

@@ -20,7 +20,7 @@ public class PacienteController {
     @Autowired
     private PacienteRepository pacienteRepository;
 
-    @PostMapping("/cadastrar")
+    @PostMapping
     @Transactional
     public void register (@RequestBody DadosCadastroPaciente dados){
         pacienteRepository.save(new Paciente(dados));
@@ -33,14 +33,14 @@ public class PacienteController {
                 .map(DadosListagemPaciente::new);
     }
 
-    @PutMapping("/atualizar")
+    @PutMapping
     @Transactional
     public void update (@RequestBody @Valid DadosAtualizacaoPaciente dados) {
         var paciente = pacienteRepository.getReferenceById(dados.id());
         paciente.update(dados);
     }
 
-    @DeleteMapping("/deletar/{id}")
+    @DeleteMapping("/{id}")
     @Transactional
     public void delete (@PathVariable @Valid Long id) {
         var paciente = pacienteRepository.getReferenceById(id);
