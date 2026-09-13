@@ -73,7 +73,7 @@ public class PacienteController {
 
         return ResponseEntity.noContent().build();
     }
-    
+
     /*   Exclusão Física - remove do banco de dados
     @DeleteMapping("/deletar/{id}")
     @Transactional
