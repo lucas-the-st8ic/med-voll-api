@@ -54,6 +54,14 @@ public class MedicoController {
         return ResponseEntity.ok(page);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosDetalhamentoMedico> listMedicoById(@PathVariable Long id) {
+        var medico = medicoRepository.findById(id)
+                .orElseThrow(() -> new jakarta.persistence.EntityNotFoundException());
+
+        return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
+    }
+
     @PutMapping
     @Transactional
     public ResponseEntity update (@RequestBody @Valid DadosAtualizacaoMedico dados) {
