@@ -41,7 +41,7 @@ public class Paciente {
         this.status = true;
         this.nome = dados.nome();
         this.email = dados.email();
-        this.cpf = dados.cpf();
+        this.cpf = dados.cpf().replaceAll("\\D", "");
         this.telefone = dados.telefone();
         this.endereco = new Endereco(dados.endereco());
     }
@@ -49,7 +49,9 @@ public class Paciente {
     public void update(@Valid DadosAtualizacaoPaciente dados) {
         if (dados.nome() != null) this.nome = dados.nome();
         if (dados.telefone() != null) this.telefone = dados.telefone();
-        if (dados.cpf() != null) this.cpf = dados.cpf();
+        if (dados.cpf() != null) {
+            this.cpf = dados.cpf().replaceAll("\\D", "");
+        }
         if (dados.endereco() != null) this. endereco.update(dados.endereco());
         if (dados.email()!= null) this.email = dados.email();
     }

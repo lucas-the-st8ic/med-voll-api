@@ -41,7 +41,7 @@ public class PacienteController {
     }
 
     @GetMapping
-    public ResponseEntity < Page<DadosListagemPaciente> > listAll(@PageableDefault(size = 5, page = 0, sort = {"nome"})
+    public ResponseEntity < Page<DadosListagemPaciente> > listAll(@PageableDefault(size = 15, page = 0, sort = {"nome"})
                                              Pageable pageable) {
         var page = pacienteRepository.findAllByStatusTrue(pageable)
                 .map(DadosListagemPaciente::new);

@@ -20,7 +20,7 @@ public record DadosCadastroPaciente(
         String telefone,
 
         @NotBlank
-        @Pattern(regexp ="\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}")
+        @Pattern(regexp = "(^\\d{11}$)|(^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$)", message = "CPF inválido")
         String cpf,
 
         @NotNull

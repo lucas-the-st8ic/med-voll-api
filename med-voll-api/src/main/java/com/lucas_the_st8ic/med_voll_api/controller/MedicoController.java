@@ -45,7 +45,7 @@ public class MedicoController {
     }
 
     @GetMapping
-    public ResponseEntity< Page<DadosListagemMedico> > listAll(@PageableDefault(size = 5, page = 0, sort = {"nome"})
+    public ResponseEntity< Page<DadosListagemMedico> > listAll(@PageableDefault(size = 15, page = 0, sort = {"nome"})
                                                  Pageable pageable) {
 
         var page = medicoRepository.findAllByStatusTrue(pageable)
