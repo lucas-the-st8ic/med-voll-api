@@ -20,7 +20,7 @@ public class ExceptionHandler {
     @org.springframework.web.bind
             .annotation.ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity badRequestException () {
-        
+
         return ResponseEntity.badRequest().build();
     }
 }
