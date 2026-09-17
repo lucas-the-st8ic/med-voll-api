@@ -2,7 +2,6 @@ package com.lucas_the_st8ic.med_voll_api.infra;
 
 
 import jakarta.persistence.EntityNotFoundException;
-import org.apache.coyote.BadRequestException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
