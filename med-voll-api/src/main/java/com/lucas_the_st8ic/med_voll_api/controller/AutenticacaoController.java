@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/login")
+@RequestMapping
 public class AutenticacaoController {
 
 
@@ -22,7 +22,7 @@ public class AutenticacaoController {
 
 
 
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity logIn(@RequestBody @Valid
                                 DadosAutenticacao dados) {
 
