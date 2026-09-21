@@ -1,4 +1,4 @@
-package com.lucas_the_st8ic.med_voll_api.infra;
+package com.lucas_the_st8ic.med_voll_api.infra.exception;
 
 
 import jakarta.persistence.EntityNotFoundException;
