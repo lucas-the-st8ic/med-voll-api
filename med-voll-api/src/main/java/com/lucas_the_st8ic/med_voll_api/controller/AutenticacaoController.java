@@ -1,7 +1,9 @@
 package com.lucas_the_st8ic.med_voll_api.controller;
 
 
+import com.lucas_the_st8ic.med_voll_api.infra.security.TokenService;
 import com.lucas_the_st8ic.med_voll_api.usuario.DadosAutenticacao;
+import com.lucas_the_st8ic.med_voll_api.usuario.Usuario;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,7 @@ public class AutenticacaoController {
 
     private final AuthenticationManager manager;
 
+    private final TokenService tokenService;
 
 
     @PostMapping("/login")
@@ -28,6 +31,7 @@ public class AutenticacaoController {
 
         var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
         var authentication = manager.authenticate(token);
-        return ResponseEntity.ok().build();
+
+        return ResponseEntity.ok(tokenService.generateToken((Usuario) authentication.getPrincipal()));
     }
 }
