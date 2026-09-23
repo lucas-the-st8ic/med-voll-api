@@ -4,20 +4,24 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.lucas_the_st8ic.med_voll_api.usuario.Usuario;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.Date;
 
 @Service
 public class TokenService {
 
+
+    @Value("${api.security.token.med-voll.secret}")
+    private String secret;
+
+
     public String generateToken(Usuario usuario) {
         try {
-            var algorithm = Algorithm.HMAC256("EEJFHBFERKJBEFEJJJBEERREFFBRHJBFFKEJRHFEEURBB@*");
+            var algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer("Med-Voll-API")
                     .withSubject(usuario.getLogin())

@@ -1,6 +1,7 @@
 package com.lucas_the_st8ic.med_voll_api.controller;
 
 
+import com.lucas_the_st8ic.med_voll_api.infra.security.DadosTokenJWT;
 import com.lucas_the_st8ic.med_voll_api.infra.security.TokenService;
 import com.lucas_the_st8ic.med_voll_api.usuario.DadosAutenticacao;
 import com.lucas_the_st8ic.med_voll_api.usuario.Usuario;
@@ -29,9 +30,11 @@ public class AutenticacaoController {
     public ResponseEntity logIn(@RequestBody @Valid
                                 DadosAutenticacao dados) {
 
-        var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
-        var authentication = manager.authenticate(token);
+        var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+        var authentication = manager.authenticate(authenticationToken);
 
-        return ResponseEntity.ok(tokenService.generateToken((Usuario) authentication.getPrincipal()));
+        var tokenJWT = tokenService.generateToken((Usuario) authentication.getPrincipal());
+
+        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }
 }
