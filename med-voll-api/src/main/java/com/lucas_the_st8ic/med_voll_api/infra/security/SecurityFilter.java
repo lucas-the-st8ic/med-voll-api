@@ -22,19 +22,21 @@ public class SecurityFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException
     {
         var tokenJWT = recoverToken(request);
-        var subject = tokenService.getSubject(tokenJWT);
 
+        if(tokenJWT != null) {
+            var subject = tokenService.getSubject(tokenJWT);
 
-
+        }
+        
         filterChain.doFilter(request, response);
     }
 
     private String recoverToken(HttpServletRequest request) {
         var authorizationHeader = request.getHeader("Authorization");
-        if (authorizationHeader == null) {
-            throw new SecurityException("Invalid Authorization Header");
+        if (authorizationHeader != null) {
+            return authorizationHeader.replace("Bearer ", "");
         }
 
-        return authorizationHeader.replace("Bearer ", "");
+        return null;
     }
 }
