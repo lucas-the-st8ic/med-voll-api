@@ -18,7 +18,9 @@ public class SecurityFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException
     {
         var tokenJWT = recoverToken(request);
-        System.out.println("Token: " + tokenJWT);
+
+
+
         filterChain.doFilter(request, response);
     }
 
