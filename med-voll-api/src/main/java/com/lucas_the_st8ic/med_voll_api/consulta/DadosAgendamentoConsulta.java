@@ -1,5 +1,6 @@
 package com.lucas_the_st8ic.med_voll_api.consulta;
 
+import com.lucas_the_st8ic.med_voll_api.medico.Especialidade;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
@@ -14,5 +15,7 @@ public record DadosAgendamentoConsulta(
 
         @NotNull
         @Future
-        LocalDateTime data) {
+        LocalDateTime data,
+
+        Especialidade especialidade) {
 }

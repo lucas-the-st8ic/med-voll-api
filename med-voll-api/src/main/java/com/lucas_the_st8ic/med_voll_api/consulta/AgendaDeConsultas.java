@@ -1,6 +1,7 @@
 package com.lucas_the_st8ic.med_voll_api.consulta;
 
 import com.lucas_the_st8ic.med_voll_api.infra.exception.ResourceNotFoundException;
+import com.lucas_the_st8ic.med_voll_api.model.Medico;
 import com.lucas_the_st8ic.med_voll_api.repository.ConsultaRepository;
 import com.lucas_the_st8ic.med_voll_api.repository.MedicoRepository;
 import com.lucas_the_st8ic.med_voll_api.repository.PacienteRepository;
@@ -29,10 +30,22 @@ public class AgendaDeConsultas {
             throw new ResourceNotFoundException("Id do medico não existe");
         }
 
-        var medico = medicoRepository.findById(dados.idMedico()).get();
-        var paciente = pacienteRepository.findById(dados.idPaciente()).get();
+        var medico = escolherMedico(dados);
+        var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
         var consulta = new Consulta(null, medico, paciente, dados.data());
 
         consultaRepository.save(consulta);
+    }
+
+    private Medico escolherMedico(DadosAgendamentoConsulta dados) {
+        if(dados.idMedico() != null) {
+            return medicoRepository.getReferenceById(dados.idMedico());
+        }
+
+        if(dados.especialidade() == null) {
+            throw new ResourceNotFoundException("O campo especialidade é obrigatório");
+        }
+
+        return medicoRepository.escolherMedicoAleatorioLivreNaData(dados.especialidade(), dados.data());
     }
 }
