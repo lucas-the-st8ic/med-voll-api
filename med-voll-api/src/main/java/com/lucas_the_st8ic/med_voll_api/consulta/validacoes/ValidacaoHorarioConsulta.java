@@ -6,9 +6,9 @@ import com.lucas_the_st8ic.med_voll_api.infra.exception.ValidacaoException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class ValidacaoHorarioConsulta {
+public class ValidacaoHorarioConsulta implements ValidacaoAgendamentoConsulta {
 
-    public void validarHorarioConsulta(DadosAgendamentoConsulta dados) {
+    public void validar(DadosAgendamentoConsulta dados) {
 
         var dataConsulta = dados.data();
         var now = LocalDateTime.now();

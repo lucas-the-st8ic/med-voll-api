@@ -5,7 +5,7 @@ import com.lucas_the_st8ic.med_voll_api.infra.exception.ValidacaoException;
 
 import java.time.DayOfWeek;
 
-public class ValidacaoHorarioFuncionamentoClinica {
+public class ValidacaoHorarioFuncionamentoClinica implements ValidacaoAgendamentoConsulta {
 
     public void validar(DadosAgendamentoConsulta dados) throws ValidacaoException {
         var dataConsulta = dados.data();

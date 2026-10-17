@@ -4,11 +4,11 @@ import com.lucas_the_st8ic.med_voll_api.consulta.DadosAgendamentoConsulta;
 import com.lucas_the_st8ic.med_voll_api.infra.exception.ValidacaoException;
 import com.lucas_the_st8ic.med_voll_api.repository.ConsultaRepository;
 
-public class ValidacaoMedicoComHorarioIndisponivel {
+public class ValidacaoMedicoComHorarioIndisponivel implements ValidacaoAgendamentoConsulta{
 
     private ConsultaRepository consultaRepository;
 
-    public void validarAgendaDisponivel(DadosAgendamentoConsulta dados) {
+    public void validar(DadosAgendamentoConsulta dados) {
         boolean medicoComHorarioIndisponivel = consultaRepository
                 .existsByIdAndData(dados.idMedico(), dados.data());
 
