@@ -3,7 +3,9 @@ package com.lucas_the_st8ic.med_voll_api.consulta.validacoes;
 import com.lucas_the_st8ic.med_voll_api.consulta.DadosAgendamentoConsulta;
 import com.lucas_the_st8ic.med_voll_api.infra.exception.ValidacaoException;
 import com.lucas_the_st8ic.med_voll_api.repository.MedicoRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ValidacaoMedicoAtivo implements ValidacaoAgendamentoConsulta {
 
     private MedicoRepository medicoRepository;

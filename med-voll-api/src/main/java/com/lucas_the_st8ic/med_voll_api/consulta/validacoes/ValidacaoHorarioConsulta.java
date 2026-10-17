@@ -2,10 +2,12 @@ package com.lucas_the_st8ic.med_voll_api.consulta.validacoes;
 
 import com.lucas_the_st8ic.med_voll_api.consulta.DadosAgendamentoConsulta;
 import com.lucas_the_st8ic.med_voll_api.infra.exception.ValidacaoException;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+@Component
 public class ValidacaoHorarioConsulta implements ValidacaoAgendamentoConsulta {
 
     public void validar(DadosAgendamentoConsulta dados) {
