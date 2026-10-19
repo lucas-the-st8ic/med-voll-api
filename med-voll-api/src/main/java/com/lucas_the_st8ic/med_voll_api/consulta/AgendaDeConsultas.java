@@ -1,7 +1,7 @@
 package com.lucas_the_st8ic.med_voll_api.consulta;
 
 import com.lucas_the_st8ic.med_voll_api.consulta.validacoes.ValidacaoAgendamentoConsulta;
-import com.lucas_the_st8ic.med_voll_api.infra.exception.ResourceNotFoundException;
+import com.lucas_the_st8ic.med_voll_api.infra.exception.ValidacaoException;
 import com.lucas_the_st8ic.med_voll_api.model.Medico;
 import com.lucas_the_st8ic.med_voll_api.repository.ConsultaRepository;
 import com.lucas_the_st8ic.med_voll_api.repository.MedicoRepository;
@@ -30,11 +30,11 @@ public class AgendaDeConsultas {
     public DadosDetalhamentoConsulta agendar(DadosAgendamentoConsulta dados) {
 
         if (!pacienteRepository.existsById(dados.idPaciente())) {
-            throw new ResourceNotFoundException("Id do paciente não existe");
+            throw new ValidacaoException("Id do paciente não existe");
         }
 
         if (dados.idMedico() != null && !medicoRepository.existsById(dados.idMedico())) {
-            throw new ResourceNotFoundException("Id do medico não existe");
+            throw new ValidacaoException("Id do medico não existe");
         }
 
         validacoes.forEach(v -> v.validar(dados));
@@ -54,7 +54,7 @@ public class AgendaDeConsultas {
         }
 
         if(dados.especialidade() == null) {
-            throw new ResourceNotFoundException("O campo especialidade é obrigatório");
+            throw new ValidacaoException("O campo especialidade é obrigatório");
         }
 
         return medicoRepository.escolherMedicoAleatorioLivreNaData(dados.especialidade(), dados.data());

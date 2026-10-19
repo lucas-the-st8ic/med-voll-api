@@ -3,24 +3,29 @@ package com.lucas_the_st8ic.med_voll_api.consulta.validacoes;
 import com.lucas_the_st8ic.med_voll_api.consulta.DadosAgendamentoConsulta;
 import com.lucas_the_st8ic.med_voll_api.infra.exception.ValidacaoException;
 import com.lucas_the_st8ic.med_voll_api.repository.PacienteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ValidacaoPacienteAtivo {
-    public class validacaoPacienteAtivo implements ValidacaoAgendamentoConsulta {
+public class ValidacaoPacienteAtivo implements ValidacaoAgendamentoConsulta {
 
-        private PacienteRepository pacienteRepository;
+    @Autowired
+    private PacienteRepository pacienteRepository;
 
-        public void validar (DadosAgendamentoConsulta dados) {
-            if (dados.idPaciente() == null) {
-                return;
-            }
+    @Override
+    public void validar(DadosAgendamentoConsulta dados) {
 
-            boolean pacienteEstaAtivo = (boolean) pacienteRepository.findStatusById(dados.idPaciente());
+        if (dados.idPaciente() == null) {
+            return;
+        }
 
-            if (!pacienteEstaAtivo)
-                throw new ValidacaoException("Médico não disponível para consultas");
+        Boolean pacienteEstaAtivo =
+                pacienteRepository.findStatusById(dados.idPaciente());
 
+        if (!Boolean.TRUE.equals(pacienteEstaAtivo)) {
+            throw new ValidacaoException(
+                    "Paciente não disponível para consultas"
+            );
         }
     }
 }
