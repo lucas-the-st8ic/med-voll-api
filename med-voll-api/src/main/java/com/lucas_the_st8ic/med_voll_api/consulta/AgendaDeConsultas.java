@@ -27,7 +27,7 @@ public class AgendaDeConsultas {
     @Autowired
     private List<ValidacaoAgendamentoConsulta> validacoes;
 
-    public void agendar(DadosAgendamentoConsulta dados) {
+    public DadosDetalhamentoConsulta agendar(DadosAgendamentoConsulta dados) {
 
         if (!pacienteRepository.existsById(dados.idPaciente())) {
             throw new ResourceNotFoundException("Id do paciente não existe");
@@ -44,6 +44,8 @@ public class AgendaDeConsultas {
         var consulta = new Consulta(null, medico, paciente, dados.data());
 
         consultaRepository.save(consulta);
+
+        return new DadosDetalhamentoConsulta(consulta);
     }
 
     private Medico escolherMedico(DadosAgendamentoConsulta dados) {

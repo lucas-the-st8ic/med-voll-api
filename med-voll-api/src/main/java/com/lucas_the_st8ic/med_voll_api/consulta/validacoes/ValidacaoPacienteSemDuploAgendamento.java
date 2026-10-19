@@ -16,7 +16,7 @@ public class ValidacaoPacienteSemDuploAgendamento implements ValidacaoAgendament
         var ultimoHorario = dados.data().withHour(18);
 
         boolean duploAgendamento = consultaRepository
-                .existsByPacienteIdAndDataBewtween(dados.idPaciente(),
+                .existsByPacienteIdAndDataBetween(dados.idPaciente(),
                         primeiroHorario, ultimoHorario);
 
         if (duploAgendamento) {

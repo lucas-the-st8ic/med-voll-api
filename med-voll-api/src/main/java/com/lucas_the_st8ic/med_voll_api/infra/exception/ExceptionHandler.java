@@ -28,6 +28,14 @@ public class ExceptionHandler {
                 .map(DataArgumentNotValid::new).toList());
     }
 
+    @org.springframework.web.bind
+            .annotation.ExceptionHandler(ValidacaoException.class)
+    public ResponseEntity businessRulesException (
+            ValidacaoException exception) {
+
+        return ResponseEntity.badRequest().body(exception.getMessage());
+    }
+
 
     private record DataArgumentNotValid(String campo, String mensagem) {
 
