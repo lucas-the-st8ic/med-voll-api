@@ -6,6 +6,7 @@ import com.lucas_the_st8ic.med_voll_api.model.Paciente;
 import com.lucas_the_st8ic.med_voll_api.paciente.DadosAtualizacaoPaciente;
 import com.lucas_the_st8ic.med_voll_api.paciente.DadosListagemPaciente;
 import com.lucas_the_st8ic.med_voll_api.repository.PacienteRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/pacientes")
+@SecurityRequirement(name = "bearer-key")
 public class PacienteController {
 
     private final PacienteRepository pacienteRepository;

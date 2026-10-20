@@ -7,6 +7,7 @@ import com.lucas_the_st8ic.med_voll_api.medico.DadosDetalhamentoMedico;
 import com.lucas_the_st8ic.med_voll_api.medico.DadosListagemMedico;
 import com.lucas_the_st8ic.med_voll_api.model.Medico;
 import com.lucas_the_st8ic.med_voll_api.repository.MedicoRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/medicos")
 @EnableSpringDataWebSupport(pageSerializationMode =
         EnableSpringDataWebSupport.PageSerializationMode.VIA_DTO)
+@SecurityRequirement(name = "bearer-key")
 public class MedicoController {
 
     private final MedicoRepository medicoRepository;

@@ -2,7 +2,7 @@ package com.lucas_the_st8ic.med_voll_api.controller;
 
 import com.lucas_the_st8ic.med_voll_api.consulta.AgendaDeConsultas;
 import com.lucas_the_st8ic.med_voll_api.consulta.DadosAgendamentoConsulta;
-import com.lucas_the_st8ic.med_voll_api.consulta.DadosDetalhamentoConsulta;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("consultas")
+@SecurityRequirement(name = "bearer-key")
 public class ConsultaController {
 
     @Autowired
