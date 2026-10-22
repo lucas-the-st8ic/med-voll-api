@@ -10,4 +10,5 @@ public class MedVollApiApplication {
 		SpringApplication.run(MedVollApiApplication.class, args);
 	}
 
+    
 }
