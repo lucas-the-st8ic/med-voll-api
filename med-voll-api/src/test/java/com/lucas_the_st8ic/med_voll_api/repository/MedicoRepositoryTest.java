@@ -8,6 +8,6 @@ class MedicoRepositoryTest {
 
     @Test
     void escolherMedicoAleatorioLivreNaData() {
-        
+
     }
 }
