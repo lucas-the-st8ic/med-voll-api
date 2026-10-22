@@ -1,1 +1,0 @@
-UPDATE medicos SET status = 1;

@@ -145,9 +145,8 @@
                             </annotationProcessorPaths>
                         </configuration>
                     </execution>
-                </executions><configuration>
-                <source>16</source>
-                <target>16</target>
+                </executions>
+                <configuration>
             </configuration>
             </plugin>
         </plugins>

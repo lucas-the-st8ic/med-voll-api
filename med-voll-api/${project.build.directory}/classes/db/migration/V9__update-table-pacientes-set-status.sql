@@ -1,1 +1,0 @@
-UPDATE pacientes SET status = 1;

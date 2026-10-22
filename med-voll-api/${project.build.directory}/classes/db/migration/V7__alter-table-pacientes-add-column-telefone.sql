@@ -1,1 +1,0 @@
-ALTER TABLE pacientes ADD telefone varchar(20) not null;
